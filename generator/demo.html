@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<style>
+h1{
+	padding: 50px;
+	font-size: 30px;
+	font-family: "Times New Roman";
+}
+</style>
+<head>
+<meta charset="utf-8">
+<title>Demo</title>
+</head>
+<body>
+	<h1>Welcome</h1>
+</body>
+<script type="text/javascript">
+/* fib() is a generator */
+	function* fib(){
+		let [prev, curr] = [0, 1];
+		for(;;){
+			[prev, curr] = [curr, prev + curr];
+			if(curr > 610)
+				break;
+			yield curr;
+		}
+	}
+	for(n of fib()) {
+		console.log(n);
+	}
+
+/*  when call generator functiong fib(), you will get a iterator object. 
+ *	It has a function named next(). When you invoke next(), generator 
+ *	function fib() will be exected until come across key word yield.
+ *	It will keep the context(value and status). Return a object include 
+ *	value and status properties. Then you call it again. It will go on 
+ *	execting.*/
+
+	let seq = fib();
+	console.log(seq.next());
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+	console.log(seq.next().value +" "+seq.next().done);
+</script>
+</html>
