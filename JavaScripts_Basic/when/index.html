@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<style>
+	h1{
+		padding: 50px;
+		font-size: 40px;
+		font-family: "Times New Roman"
+	}
+</style>
+<head>
+	<meta charset='utf-8'>
+	<title>Demo</title>
+</head>
+<body>
+	<h1>Welcome</h1>
+	<div id="container"></div>
+</body>
+<script src="node_modules/when/dist/browser/when.js"></script>
+<script type="text/javascript" src="jquery-1.9.1.js"></script>
+<script type="text/javascript">
+/* callback */
+		var getPath = function(callback) {
+			path = "888.png";
+			callback(path);			
+		}
+
+		var getImg = function(src, callback) {
+			var img = new Image();
+
+			img.onload = function() {
+				callback(img);
+			};
+
+			img.src = src;
+		}
+
+		var showImg = function(img) {
+			$(img).appendTo($('#container'));
+		}
+
+		getPath(function(data) {
+			getImg(data, function(img) {
+				showImg(img);
+			});
+		});
+</script>
+<script type="text/javascript">
+/* when.js */ 
+var getPath_2 = function() {
+	var deferred = when.defer();
+	data = "888.png";
+	deferred.resolve(data);
+	
+	return deferred.promise;
+}
+
+var getImg_2 = function(src) {
+	var deferred = when.defer();
+	var img = new Image();
+
+	img.onload = function() {
+		deferred.resolve(img);
+	};
+	img.src = src;
+
+	return deferred.promise;
+}
+
+var showImg_2 = function(img) {
+	$(img).appendTo($('#container'));
+}
+
+getPath_2()
+.then(getImg_2)
+.then(showImg_2);
+
+</script>
+</html>
